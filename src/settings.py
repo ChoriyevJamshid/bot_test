@@ -2,7 +2,6 @@ import os
 from pathlib import Path
 from environs import Env
 
-
 env = Env()
 if not os.path.exists(".env"):
     print(".env not found, creating .env")
@@ -14,16 +13,13 @@ DEBUG = env.bool("DEBUG")
 API_TOKEN = env.str("API_TOKEN")
 ADMIN = env.str("ADMIN")
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -56,7 +52,7 @@ MIDDLEWARE = [
 if not DEBUG:
     index = INSTALLED_APPS.index('django.contrib.staticfiles')
     INSTALLED_APPS.insert(index, "whitenoise.runserver_nostatic")
-    MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware",)
+    MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware", )
 
 ROOT_URLCONF = 'src.urls'
 
@@ -78,7 +74,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'src.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -91,12 +86,15 @@ DB_ALL = {
         'NAME': BASE_DIR / 'db.sqlite3',
     },
     DB_POSTGRESQL: {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': env.str("DB_NAME"),
         'USER': env.str("DB_USER"),
         'PASSWORD': env.str("DB_PASSWORD"),
         'HOST': env.str("DB_HOST"),
         'PORT': env.str("DB_PORT"),
+        # 'OPTIONS': {
+        #     'encoding': 'UTF8',
+        # },
     }
 }
 
@@ -122,7 +120,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -133,7 +130,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
@@ -164,11 +160,9 @@ REDIS_PORT = env.int("REDIS_PORT", 6379)
 REDIS_DB = env.int("REDIS_DB", 0)
 REDIS_URL = f'{REDIS_HOST}://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}'
 
-
 CELERY_BROKER_URL = env.str("CELERY_BROKER_URL", "redis://localhost:6379")
 CELERY_RESULT_BACKEND = env.str("CELERY_BROKER_URL", "redis://localhost:6379")
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
-
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -179,4 +173,3 @@ CKEDITOR_CONFIGS = {
 }
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_RESTRICT_BY_USER = True
-

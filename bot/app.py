@@ -54,4 +54,3 @@ def main() -> None:
     dp.startup.register(aiogram_on_startup_polling)
     dp.shutdown.register(aiogram_on_shutdown_polling)
     asyncio.run(dp.start_polling(bot))
-

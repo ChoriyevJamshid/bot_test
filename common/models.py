@@ -1,5 +1,3 @@
-from termios import BSDLY
-
 from django.db import models
 from utils import BaseModel, Profile, TextType
 from ckeditor.fields import RichTextField
